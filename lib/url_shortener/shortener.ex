@@ -22,12 +22,22 @@ defmodule UrlShortener.Shortener do
     |> get_by_token()
   end
 
-  @spec get_by_token(String.t()) :: Url.t() | nil
+  @spec get_by_token(String.t() | nil) :: Url.t() | nil
+  def get_by_token(nil), do: nil
+
   def get_by_token(token) do
     Url.by_token(token) |> Repo.one()
   end
 
-  def build_link(token), do: "#{UrlShortenerWeb.Endpoint.host()}/#{token}"
+  @spec increment_views(Url.t()) :: Url.t()
+  def increment_views(url) do
+    url
+    |> Url.changeset(%{views: url.views + 1})
+    |> Repo.update()
+  end
+
+  def build_link(token),
+    do: "#{UrlShortenerWeb.Endpoint.static_url()}/#{token}"
 
   defp generate_token do
     :crypto.strong_rand_bytes(@token_rnd_bytes)
@@ -35,7 +45,9 @@ defmodule UrlShortener.Shortener do
   end
 
   defp extract_token_from_link(short_link) do
-    [_ | path] = String.split(short_link, "/", parts: 2)
-    List.first(path)
+    case URI.parse(short_link) do
+      %URI{path: nil} -> :error
+      %URI{path: token} -> String.trim(token, "/")
+    end
   end
 end

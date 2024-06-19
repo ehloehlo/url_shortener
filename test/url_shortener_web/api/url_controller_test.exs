@@ -4,7 +4,7 @@ defmodule UrlShortenerWeb.Api.UrlControllerTest do
   import UrlFixture
 
   @token "link-token"
-  @short_link "localhost/#{@token}"
+  @short_link "#{UrlShortenerWeb.Endpoint.static_url()}/#{@token}"
 
   describe "POST /api/v1/url" do
     test "creates a shortcut for a valid link", %{conn: conn} do
@@ -15,7 +15,7 @@ defmodule UrlShortenerWeb.Api.UrlControllerTest do
       refute is_nil(resp["url"])
 
       assert resp["url"]["link"] == original_link()
-      assert resp["url"]["shortLink"] =~ "localhost/"
+      assert resp["url"]["shortLink"] =~ "http://localhost"
       assert resp["url"]["views"] == 0
     end
 
