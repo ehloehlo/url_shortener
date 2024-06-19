@@ -20,13 +20,13 @@ defmodule UrlShortenerWeb.Api.UrlControllerTest do
     end
 
     test "returns error for an invalid link", %{conn: conn} do
-      link = "localhost:8888"
+      link = "broken link"
 
       conn = post(conn, ~p"/api/v1/url", %{link: link})
 
-      assert json_response(conn, 422) ==  %{
-        "errors" => %{"link" => ["Invalid URL format"]}
-      }
+      assert json_response(conn, 422) == %{
+               "errors" => %{"link" => ["invalid URL format"]}
+             }
     end
   end
 
@@ -43,12 +43,12 @@ defmodule UrlShortenerWeb.Api.UrlControllerTest do
       conn = get(conn, ~p"/api/v1/url", %{shortLink: @short_link})
 
       assert json_response(conn, 200) == %{
-        "url" => %{
-          "link" => url.link,
-          "views" => url.views,
-          "shortLink" => @short_link
-        }
-      }
+               "url" => %{
+                 "link" => url.link,
+                 "views" => url.views,
+                 "shortLink" => @short_link
+               }
+             }
     end
 
     test "returns `null` if no links found", %{conn: conn} do

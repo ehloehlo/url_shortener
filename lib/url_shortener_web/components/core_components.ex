@@ -156,8 +156,7 @@ defmodule UrlShortenerWeb.CoreComponents do
         phx-connected={hide("#client-error")}
         hidden
       >
-        Attempting to reconnect
-        <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+        Attempting to reconnect <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
 
       <.flash
@@ -230,7 +229,7 @@ defmodule UrlShortenerWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "phx-submit-loading:opacity-75 rounded-md bg-indigo-600 shadow-sm hover:bg-indigo-700 focus-visible:outline px-2 py-2",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
         @class
       ]}
@@ -360,6 +359,28 @@ defmodule UrlShortenerWeb.CoreComponents do
         ]}
         {@rest}
       ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
+      <.error :for={msg <- @errors}><%= msg %></.error>
+    </div>
+    """
+  end
+
+  def input(%{type: "text", name: "link"} = assigns) do
+    ~H"""
+    <div phx-feedback-for={@name}>
+      <.label for={@id}><%= @label %></.label>
+      <input
+        type={@type}
+        name={@name}
+        id={@id}
+        value={Phoenix.HTML.Form.normalize_value(URI, @value)}
+        class={[
+          "mt-2 block w-full rounded-md ring-1 ring-inset ring-gray-200 text-zinc-900 focus:ring-1 sm:text-sm sm:leading-6",
+          "phx-no-feedback:focus:ring-indigo-200",
+          @errors == [] && "border-zinc-300 focus:border-zinc-400",
+          @errors != [] && "border-rose-400 focus:border-rose-400"
+        ]}
+        {@rest}
+      />
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """

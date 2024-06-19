@@ -3,7 +3,7 @@ defmodule UrlShortener.Links.Validator do
 
   @checks [:nonempty_string, :uri_parsed, :match_url_regex]
 
-  @url_regex ~r/http[s]?:\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/
+  @url_regex ~r/(http[s]?:\/\/)?(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+/
 
   @spec validate_url(any(), any(), any()) :: any()
   def validate_url(changeset, fields, opts \\ []) do
@@ -15,16 +15,17 @@ defmodule UrlShortener.Links.Validator do
     case fields_with_errors do
       [] ->
         changeset
+
       _ ->
-        msg = message(opts, "Invalid URL format")
+        msg = message(opts, "invalid URL format")
         new_errors = Enum.map(fields_with_errors, &{&1, {msg, [validation: :url]}})
         changes = Map.drop(changeset.changes, fields_with_errors)
 
         %{
           changeset
           | changes: changes,
-          errors: new_errors ++ changeset.errors,
-          valid?: false
+            errors: new_errors ++ changeset.errors,
+            valid?: false
         }
     end
   end
