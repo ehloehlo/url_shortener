@@ -7,10 +7,10 @@ defmodule UrlShortener.Links.Url do
   import Ecto.Query, only: [from: 2]
 
   @type t :: %__MODULE__{
-    link: String.t(),
-    token: String.t(),
-    views: integer
-  }
+          link: String.t(),
+          token: String.t(),
+          views: integer
+        }
 
   @required_fields ~w(link token views)a
 

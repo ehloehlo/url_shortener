@@ -9,12 +9,14 @@ defmodule UrlShortenerWeb.Api.UrlController do
     |> String.trim()
     |> Shortener.create_url()
     |> case do
-        {:ok, url} -> render(conn, :url, %{url: url})
-        {:error, %Ecto.Changeset{} = changeset} ->
-          conn
-          |> put_status(422)
-          |> put_view(ErrorJsonView)
-          |> render(:"422", changeset: changeset)
+      {:ok, url} ->
+        render(conn, :url, %{url: url})
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(422)
+        |> put_view(ErrorJsonView)
+        |> render(:"422", changeset: changeset)
     end
   end
 
