@@ -5,7 +5,7 @@ defmodule UrlShortenerWeb.Web.UrlController do
   alias UrlShortener.Shortener
 
   def get(conn, %{"token" => token}) do
-    case Shortener.get_by_token(token) do
+    case Shortener.maybe_get_by_token(token) do
       %Url{} = url ->
         Task.start(fn -> Shortener.increment_views(url) end)
 

@@ -19,13 +19,13 @@ defmodule UrlShortener.Shortener do
   def get_by_short_link(short_link) do
     short_link
     |> extract_token_from_link()
-    |> get_by_token()
+    |> maybe_get_by_token()
   end
 
-  @spec get_by_token(String.t() | nil) :: Url.t() | nil
-  def get_by_token(nil), do: nil
+  @spec maybe_get_by_token(String.t() | nil) :: Url.t() | nil
+  def maybe_get_by_token(nil), do: nil
 
-  def get_by_token(token) do
+  def maybe_get_by_token(token) do
     Url.by_token(token) |> Repo.one()
   end
 
