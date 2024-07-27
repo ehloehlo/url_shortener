@@ -1,4 +1,4 @@
-defmodule UrlShortenerWeb.Web.UrlHTML do
+defmodule UrlShortenerWeb.UrlLiveHTML do
   use UrlShortenerWeb, :html
 
   def render(template, _assigns) do

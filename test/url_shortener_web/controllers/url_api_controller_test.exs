@@ -6,17 +6,23 @@ defmodule UrlShortenerWeb.Api.UrlControllerTest do
   @token "link-token"
   @short_link "#{UrlShortenerWeb.Endpoint.static_url()}/#{@token}"
 
+  defp setup_original_link(_context), do: %{original_link: original_link()}
+
   describe "POST /api/v1/url" do
-    test "creates a shortcut for a valid link", %{conn: conn} do
-      conn = post(conn, ~p"/api/v1/url", %{link: original_link()})
+    setup [:setup_original_link]
+
+    test "creates a shortcut for a valid link", %{conn: conn, original_link: original_link} do
+      conn = post(conn, ~p"/api/v1/url", %{link: original_link})
 
       assert resp = json_response(conn, 200)
 
-      refute is_nil(resp["url"])
-
-      assert resp["url"]["link"] == original_link()
-      assert resp["url"]["shortLink"] =~ "http://localhost"
-      assert resp["url"]["views"] == 0
+      assert %{
+               "url" => %{
+                 "link" => ^original_link,
+                 "shortLink" => "http://localhost" <> _,
+                 "views" => 0
+               }
+             } = resp
     end
 
     test "returns error for an invalid link", %{conn: conn} do

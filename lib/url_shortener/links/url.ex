@@ -1,4 +1,6 @@
 defmodule UrlShortener.Links.Url do
+  @moduledoc false
+
   alias UrlShortener.Links.Validator
   use Ecto.Schema
 

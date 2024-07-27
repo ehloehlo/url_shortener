@@ -1,4 +1,4 @@
-defmodule UrlShortenerWeb.Web.UrlController do
+defmodule UrlShortenerWeb.UrlController do
   use UrlShortenerWeb, :controller
 
   alias UrlShortener.Links.Url
@@ -14,8 +14,7 @@ defmodule UrlShortenerWeb.Web.UrlController do
 
       nil ->
         conn
-        |> put_status(404)
-        |> render(:"404")
+        |> send_resp(404, "Not Found")
     end
   end
 end

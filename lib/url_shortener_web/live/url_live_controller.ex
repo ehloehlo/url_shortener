@@ -1,4 +1,4 @@
-defmodule UrlShortenerWeb.Web.UrlLiveController do
+defmodule UrlShortenerWeb.UrlLiveController do
   use UrlShortenerWeb, :live_view
 
   alias UrlShortener.Shortener

@@ -1,6 +1,10 @@
 defmodule UrlShortener.Shortener do
-  alias UrlShortener.Repo
+  @moduledoc """
+  The module provides an interface for creating and expanding shortened URLs
+  """
+
   alias UrlShortener.Links.Url
+  alias UrlShortener.Repo
 
   @token_rnd_bytes 8
 
