@@ -15,6 +15,7 @@ defmodule UrlShortener.Application do
       # Start a worker by calling: UrlShortener.Worker.start_link(arg)
       # {UrlShortener.Worker, arg},
       # Start to serve requests, typically the last entry
+      UrlShortener.RateLimit,
       UrlShortenerWeb.Endpoint
     ]
 

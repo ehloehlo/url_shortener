@@ -2,7 +2,7 @@ defmodule UrlShortenerWeb.Api.UrlController do
   use UrlShortenerWeb, :controller
 
   alias UrlShortener.Shortener
-  alias UrlShortenerWeb.Api.ErrorJsonView
+  alias UrlShortenerWeb.ErrorJSON
 
   def create(%Plug.Conn{params: %{"link" => link}} = conn, _) do
     link
@@ -15,7 +15,7 @@ defmodule UrlShortenerWeb.Api.UrlController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_status(422)
-        |> put_view(ErrorJsonView)
+        |> put_view(ErrorJSON)
         |> render(:"422", changeset: changeset)
     end
   end
