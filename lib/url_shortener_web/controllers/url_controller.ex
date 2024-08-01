@@ -1,11 +1,11 @@
-defmodule UrlShortenerWeb.Web.UrlController do
+defmodule UrlShortenerWeb.UrlController do
   use UrlShortenerWeb, :controller
 
   alias UrlShortener.Links.Url
   alias UrlShortener.Shortener
 
   def get(conn, %{"token" => token}) do
-    case Shortener.get_by_token(token) do
+    case Shortener.maybe_get_by_token(token) do
       %Url{} = url ->
         Task.start(fn -> Shortener.increment_views(url) end)
 
@@ -14,8 +14,7 @@ defmodule UrlShortenerWeb.Web.UrlController do
 
       nil ->
         conn
-        |> put_status(404)
-        |> render(:"404")
+        |> send_resp(404, "Not Found")
     end
   end
 end

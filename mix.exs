@@ -9,7 +9,8 @@ defmodule UrlShortener.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [ignore_modules: test_coverage_ignore_modules()]
     ]
   end
 
@@ -28,29 +29,30 @@ defmodule UrlShortener.MixProject do
 
   defp deps do
     [
-      {:phoenix, "~> 1.7.11"},
-      {:phoenix_ecto, "~> 4.4"},
+      {:bandit, "~> 1.2"},
+      {:dns_cluster, "~> 0.1.1"},
       {:ecto_sql, "~> 3.10"},
-      {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 4.0"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.20.2"},
-      {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:floki, ">= 0.30.0", only: :test},
       {:heroicons,
-       github: "tailwindlabs/heroicons",
-       tag: "v2.1.1",
-       sparse: "optimized",
        app: false,
        compile: false,
-       depth: 1},
+       depth: 1,
+       github: "tailwindlabs/heroicons",
+       sparse: "optimized",
+       tag: "v2.1.1"},
+      {:jason, "~> 1.2"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:phoenix_html, "~> 4.0"},
+      {:phoenix_live_dashboard, "~> 0.8.3"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_view, "~> 0.20.2"},
+      {:phoenix, "~> 1.7.11"},
+      {:postgrex, ">= 0.0.0"},
+      {:remote_ip, "~> 1.2"},
+      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:jason, "~> 1.2"},
-      {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"},
 
       # Linters
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
@@ -71,6 +73,20 @@ defmodule UrlShortener.MixProject do
         "esbuild url_shortener --minify",
         "phx.digest"
       ]
+    ]
+  end
+
+  defp test_coverage_ignore_modules do
+    [
+      UrlShortener.Application,
+      UrlShortener.DataCase,
+      UrlShortener.Release,
+      UrlShortener.Repo,
+      UrlShortenerWeb.ChangesetJSON,
+      UrlShortenerWeb.CoreComponents,
+      UrlShortenerWeb.Layouts,
+      UrlShortenerWeb.Telemetry,
+      UrlShortenerWeb.UrlLiveHTML
     ]
   end
 end

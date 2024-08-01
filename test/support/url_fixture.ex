@@ -1,4 +1,6 @@
 defmodule UrlFixture do
+  @moduledoc false
+
   import UrlShortener.Repo
   alias UrlShortener.Links.Url
 
@@ -19,4 +21,7 @@ defmodule UrlFixture do
   end
 
   def original_link, do: @original_link
+
+  def get_short_link(%Url{token: token} = _url),
+    do: "#{UrlShortenerWeb.Endpoint.static_url()}/#{token}"
 end

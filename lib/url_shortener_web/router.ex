@@ -12,14 +12,15 @@ defmodule UrlShortenerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug UrlShortenerWeb.Plugs.RateLimit
   end
 
   scope "/", UrlShortenerWeb do
     pipe_through :browser
 
-    live "/", Web.UrlLiveController
+    live "/", UrlLiveController
 
-    get "/:token", Web.UrlController, :get
+    get "/:token", UrlController, :get
   end
 
   scope "/api", UrlShortenerWeb do

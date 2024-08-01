@@ -2,7 +2,9 @@ defmodule UrlShortenerWeb.ErrorJSONTest do
   use UrlShortenerWeb.ConnCase, async: true
 
   test "renders 404" do
-    assert UrlShortenerWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
+    assert UrlShortenerWeb.ErrorJSON.render("404.json", %{}) == %{
+             errors: %{detail: "Not Found"}
+           }
   end
 
   test "renders 500" do

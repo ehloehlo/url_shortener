@@ -1,4 +1,8 @@
 defmodule UrlShortener.Links.Validator do
+  @moduledoc """
+  Validates URLs stucture
+  """
+
   import Ecto.Changeset
 
   @checks [:nonempty_string, :uri_parsed, :match_url_regex]
