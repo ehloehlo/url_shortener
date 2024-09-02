@@ -1,0 +1,8 @@
+export PG_USER=postgres
+export PG_PASS=postgres
+export PG_PORT=5432
+export PG_HOST=localhost
+
+export DATABASE_URL=postgresql://$PG_USER:$PG_PASS@$PG_HOST/url_shortener
+
+export SECRET_KEY_BASE=eHdZE9ZKuqxDhXAkDa/ChwTLwrDyX/2MKfHIafT0nj8pAR85C/FZ67Ft61x9VadB
