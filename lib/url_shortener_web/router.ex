@@ -22,6 +22,13 @@ defmodule UrlShortenerWeb.Router do
     get "/:token", RedirectController, :get
   end
 
+  scope "/api", UrlShortenerWeb.Api do
+    pipe_through :api
+
+    get "/v1/url", LinkController, :get
+    post "/v1/url", LinkController, :create
+  end
+
   # Enable LiveDashboard in development
   if Application.compile_env(:url_shortener, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put

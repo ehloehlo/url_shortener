@@ -10,10 +10,10 @@ defmodule UrlShortener.LinksFixtures do
 
   import Ecto.Query, only: [from: 2]
 
-  @original_link "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  @original_url "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
   @default_attrs %{
-    url: @original_link,
+    url: @original_url,
     token: "ck62kROwdz8",
     views: 42
   }
@@ -31,4 +31,6 @@ defmodule UrlShortener.LinksFixtures do
     do: "#{UrlShortenerWeb.Endpoint.static_url()}/#{token}"
 
   def get_link!(%Link{} = link), do: Repo.one!(from(l in Link, where: l.id == ^link.id))
+
+  def original_url, do: @original_url
 end
