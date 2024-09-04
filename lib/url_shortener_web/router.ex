@@ -12,6 +12,7 @@ defmodule UrlShortenerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug UrlShortenerWeb.Plugs.RateLimit
   end
 
   scope "/", UrlShortenerWeb do
