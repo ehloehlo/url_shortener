@@ -1,18 +1,25 @@
-# UrlShortener
+# URL Shortener
+An example microservice that converts long URLs into short links, redirects requests from short links to their original URLs, and tracks the number of times a URL has been accessed.
 
-To start your Phoenix server:
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Setup & run
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+1. Prepare environment (`.envrc`)
+```
+direnv allow
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+2. Run Postgres
+```
+docker compose up pg -d
+```
 
-## Learn more
+3. Fetch dependencies and run migrations
+```
+mix setup
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+4. Run the server
+```
+mix phx.server
+```
