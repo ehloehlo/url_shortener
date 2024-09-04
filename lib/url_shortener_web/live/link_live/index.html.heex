@@ -1,0 +1,15 @@
+<div class="px-4 py-8 sm:px-6 lg:px-8 xl:px-8">
+<.header class="border-b py-4 text-xl">
+  Make a shortcut
+</.header>
+
+<div class="w-full justify-center">
+  <.simple_form :let={f} for={@link} phx-submit="save">
+    <.input field={f[:url]} type="text" required placeholder="https://google.com" autocomplete="off" />
+    <.error :for={msg <- @errors}><%= msg %></.error>
+    <:actions>
+      <.button>Save</.button>
+    </:actions>
+  </.simple_form>
+</div>
+</div>

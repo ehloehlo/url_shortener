@@ -17,7 +17,7 @@ defmodule UrlShortenerWeb.Router do
   scope "/", UrlShortenerWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", LinkLive.Index, :index
 
     get "/:token", RedirectController, :get
   end
