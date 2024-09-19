@@ -11,7 +11,8 @@ defmodule UrlShortener.Application do
       {DNSCluster, query: Application.get_env(:url_shortener, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: UrlShortener.PubSub},
       UrlShortener.RateLimit,
-      UrlShortenerWeb.Endpoint
+      UrlShortenerWeb.Endpoint,
+      {Task.Supervisor, name: UrlShortener.TaskSupervisor}
     ]
 
     opts = [strategy: :one_for_one, name: UrlShortener.Supervisor]

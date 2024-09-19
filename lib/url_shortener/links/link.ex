@@ -13,7 +13,7 @@ defmodule UrlShortener.Links.Link do
   @type t :: %Link{
           url: String.t(),
           token: String.t(),
-          views: integer()
+          views: pos_integer()
         }
 
   @required_fields ~w(url token views)a
